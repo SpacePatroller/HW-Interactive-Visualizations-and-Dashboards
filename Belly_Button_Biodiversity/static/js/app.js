@@ -25,13 +25,12 @@ function buildMetadata(sample) {
       Object.entries(a).forEach( ([key,value]) => {
       d3.select("#sample-metadata").append('li').text(`${key}: ${value}`);
       })
+
+      // how would I go about choosing just certain labels? would have use . notfication and grab each item?
+      // ie not produce WFREQ: 7
   
     });
 
-    
-
-    // BONUS: Build the Gauge Chart
-    // buildGauge(data.WFREQ);
 }
 
 function buildCharts(sample) {
@@ -47,25 +46,22 @@ function buildCharts(sample) {
     var url1 = `/samples/${sample} ` 
 
   d3.json(url1).then((b) => {
+    // console.log(b);
 
-    console.log("is this working?")
-    console.log(b);
-
-    Object.entries(b).foreach( ([key,value]) => {
-
-      console.log("this should be otu labels")
-
-    });
-   
-   
-
-  });
-
-
+    // grab ids for the pie chart label
+    var ids = b.otu_ids.slice(0,10);
+    console.log(` ids ${ids}`);
+    // grab labels for pie chart hover text
+    var labels = b.otu_labels.slice(0,10);
+    console.log(`labels ${labels}`);
+    // grab sample_values for pie chart the values 
+    var values = b.sample_values.slice(0,10);
+    console.log(`values ${values}`);
 
     var data = [{
-      values: [19, 26, 55],
-      labels: ['Residential', 'Non-Residential', 'Utility'],
+      values: values,
+      labels: ids,
+      text: labels,
       type: 'pie'
     }];
     
@@ -77,14 +73,9 @@ function buildCharts(sample) {
     Plotly.newPlot('pie', data, layout);
 
 
+  });
 
-
-
-
-
-
-
-
+    
 
 
 
