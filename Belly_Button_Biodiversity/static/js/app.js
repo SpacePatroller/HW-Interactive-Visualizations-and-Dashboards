@@ -43,7 +43,8 @@ function buildCharts(sample) {
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
 
-    var url1 = `/samples/${sample} ` 
+  // define var to hold route and takes sample variable from the var sample = d3.select("#selDataset").node().value; 
+  var url1 = `/samples/${sample} ` 
 
   d3.json(url1).then((b) => {
     // console.log(b);
@@ -66,20 +67,19 @@ function buildCharts(sample) {
     }];
     
     var layout = {
-      height: 400,
-      width: 500
+      autosize: false,
+      margins: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 50 // change this to something larger like 100
+      },
+     
     };
     
     Plotly.newPlot('pie', data, layout);
-
-
   });
-
-    
-
-
-
-}
+};
 
 function init() {
   // Grab a reference to the dropdown select element
